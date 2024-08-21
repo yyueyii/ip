@@ -73,6 +73,7 @@ public class Mario {
                         }
                     }
                 }
+
             } else if (command.equals("todo")) {
                 if (input.split("\\s+").length == 1) {
                     output = "     Mamma mia! The todo name cannot be empty!\n";
