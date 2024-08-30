@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     private Mario mario;
@@ -82,8 +85,13 @@ public class Parser {
 
             String name = deadlineParts[0].trim();
             String deadline = deadlineParts[1].trim();
+            LocalDateTime formattedDeadline = parseDateTime(deadline);
 
-            Mario.addDeadlineTask(name, deadline);
+            if (formattedDeadline != null) {
+                Mario.addDeadlineTask(name, formattedDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
+            } else {
+                Mario.addDeadlineTask(name, deadline);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(
                     ui.betweenLines("Mamma mia! There's no deadline."
@@ -108,9 +116,19 @@ public class Parser {
                 info = input.substring(6);
                 name = info.split("/from")[0];
                 duration = info.split("/from")[1];
-                start = duration.split("/to")[0];
-                end = duration.split("/to")[1];
-                Mario.addEventTask(name, start, end);
+                start = duration.split("/to")[0].trim();
+
+                end = duration.split("/to")[1].trim();
+
+                LocalDateTime formattedStart = parseDateTime(start);
+                LocalDateTime formattedEnd = parseDateTime(end);
+
+                if (formattedEnd != null && formattedStart != null) {
+                    Mario.addEventTask(name, formattedStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")),
+                            formattedEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
+                } else {
+                    Mario.addEventTask(name, start, end);
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(ui.betweenLines(
                         "Mamma mia! There's no start and/or end time.\n"
@@ -197,6 +215,14 @@ public class Parser {
     public void handleInvalidInput() {
         System.out.println(ui.betweenLines("I don't understand what that means :("));
         return;
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeString) {
+        try {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 
 }

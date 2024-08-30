@@ -29,7 +29,7 @@ public class Event extends Task {
         } else {
             status = "[ ]";
         }
-        return "[E]" + status + " " + name + "(from:" + this.start + "to:" + this.end + ")";
+        return "[E]" + status + " " + name + "(from: " + this.start + " to: " + this.end + ")";
     }
     @Override
     public String toFileFormat() {

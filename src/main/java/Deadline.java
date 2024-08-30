@@ -26,8 +26,10 @@ public class Deadline extends Task {
         } else {
             status = "[ ]";
         }
-        return "[D]" + status + " " + name + "(by:" + this.deadline + ")";
+        return "[D]" + status + " " + name + " (by: " + this.deadline + ")";
     }
+
+
 
     @Override
     public String toFileFormat() {
