@@ -1,3 +1,7 @@
+package Mario;
+
+import Mario.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

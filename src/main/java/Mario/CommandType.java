@@ -1,3 +1,5 @@
+package Mario;
+
 public enum CommandType {
     LIST("list"),
     EVENT("event"),
