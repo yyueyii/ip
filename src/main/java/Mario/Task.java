@@ -1,3 +1,5 @@
+package Mario;
+
 public class Task {
     protected boolean isCompleted;
     protected String name;
