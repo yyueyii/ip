@@ -3,11 +3,17 @@ public class Event extends Task {
     private String end;
     private String type;
 
-    public Event (String name, String start, String end) {
+    public Event(String name, String start, String end) {
         super(name);
         this.start = start;
         this.end = end;
         this.type = "E";
+    }
+
+    public Event(String name, String start, String end, boolean isCompleted) {
+        super(name, isCompleted);
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -24,6 +30,12 @@ public class Event extends Task {
             status = "[ ]";
         }
         return "[E]" + status + " " + name + "(from:" + this.start + "to:" + this.end + ")";
+    }
+    @Override
+    public String toFileFormat() {
+        int status = this.isCompleted ? 1 : 0;
+        return "E " + "| " + status + " | "
+                + this.name + " | " + this.start + "-" + this.end;
     }
 
 }

@@ -7,6 +7,11 @@ public class Task {
         this.name = name;
     }
 
+    public Task(String name, boolean isCompleted) {
+        this.name = name;
+        this.isCompleted = isCompleted;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -24,6 +29,9 @@ public class Task {
     }
 
     public String getType() {
+        return "";
+    }
+    public String toFileFormat() {
         return "";
     }
 }
