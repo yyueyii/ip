@@ -1,6 +1,6 @@
-package Mario;
+package Mario.Tasks;
 
-import Mario.Task;
+import Mario.Tasks.Task;
 
 public class ToDo extends Task {
     String type;
