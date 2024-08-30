@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Parser {
     private Mario mario;
     private Ui ui;
@@ -7,7 +9,7 @@ public class Parser {
         this.ui = new Ui();
     }
 
-    public void parseCommand(String input) {
+    public void parseCommand(String input) throws IOException {
         String commandString = input.split(" ")[0];
         CommandType command;
         try {
@@ -51,7 +53,7 @@ public class Parser {
         Mario.listTasks();
     }
 
-    public void handleAddTodoTask(String input) {
+    public void handleAddTodoTask(String input) throws IOException {
         String[] parts = input.split(" ", 2);
         if (parts.length == 1) {
             System.out.println(
@@ -81,11 +83,13 @@ public class Parser {
             String name = deadlineParts[0].trim();
             String deadline = deadlineParts[1].trim();
 
-            mario.addDeadlineTask(name, deadline);
+            Mario.addDeadlineTask(name, deadline);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(
                     ui.betweenLines("Mamma mia! There's no deadline."
                     + " \nAdd one with the /by keyword!"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -106,11 +110,13 @@ public class Parser {
                 duration = info.split("/from")[1];
                 start = duration.split("/to")[0];
                 end = duration.split("/to")[1];
-                mario.addEventTask(name, start, end);
+                Mario.addEventTask(name, start, end);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(ui.betweenLines(
                         "Mamma mia! There's no start and/or end time.\n"
                         + "     Add them with the /from and /to keywords!\n"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -134,6 +140,8 @@ public class Parser {
         } catch (NumberFormatException e) {
             System.out.println(ui.betweenLines(
                     "Mamma mia! Please enter a valid integer."));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -156,6 +164,8 @@ public class Parser {
             System.out.println(
                     ui.betweenLines(
                             "Mamma mia! Please enter a valid integer."));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -175,6 +185,8 @@ public class Parser {
             mario.removeTask(number);
         } catch (NumberFormatException e) {
             System.out.println(ui.betweenLines("Mamma mia! Please enter a valid integer."));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
