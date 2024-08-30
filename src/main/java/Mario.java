@@ -93,7 +93,6 @@ public class Mario {
                 "All right! I've added this task: \n"
                 + "        " + event.getName() + "\n"
                 + "     Now you have " + lst.length() + " task(s) in your list!\n"));
-
     }
 
     public int getNumTasks() {
