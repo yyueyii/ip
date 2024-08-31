@@ -1,3 +1,5 @@
+package Mario;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     private Mario mario;
-    private Ui ui;
+    private final Ui ui;
 
     public Parser(Mario mario) {
         this.mario = mario;

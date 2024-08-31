@@ -1,3 +1,5 @@
+package Mario;
+
 public class Ui {
     private final String LINE = "-----------------------------------------------";
     private final String SPACE = "     ";
