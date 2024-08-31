@@ -1,4 +1,9 @@
 package Mario;
+import Mario.Tasks.Deadline;
+import Mario.Tasks.Event;
+import Mario.Tasks.Task;
+import Mario.Tasks.ToDo;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;

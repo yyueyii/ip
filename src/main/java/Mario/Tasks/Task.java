@@ -1,4 +1,4 @@
-package Mario;
+package Mario.Tasks;
 
 public class Task {
     protected boolean isCompleted;

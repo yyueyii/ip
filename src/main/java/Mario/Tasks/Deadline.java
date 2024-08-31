@@ -1,4 +1,4 @@
-package Mario;
+package Mario.Tasks;
 
 public class Deadline extends Task {
     private String deadline;
