@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private Mario mario;
+    private final Mario mario;
     private final Ui ui;
 
     public Parser(Mario mario) {
@@ -20,7 +20,8 @@ public class Parser {
         try {
             command = CommandType.fromString(commandString);
         } catch (IllegalArgumentException e) {
-            System.out.println(ui.betweenLines("Oh no! Idk what that means."));
+            System.out.println(
+                    ui.betweenLines("Oh no! Idk what that means."));
             return;
         }
 
@@ -75,7 +76,8 @@ public class Parser {
         if (parts.length < 2) {
             System.out.println(
                     ui.betweenLines(
-                            "Mamma mia! Please include task name and deadline."));
+                            "Mamma mia! "
+                                    + "Please include task name and deadline."));
             return;
         }
         String content = parts[1];
@@ -216,7 +218,6 @@ public class Parser {
 
     public void handleInvalidInput() {
         System.out.println(ui.betweenLines("I don't understand what that means :("));
-        return;
     }
 
     public static LocalDateTime parseDateTime(String dateTimeString) {

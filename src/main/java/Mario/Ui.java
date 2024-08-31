@@ -2,7 +2,6 @@ package Mario;
 
 public class Ui {
     private final String LINE = "-----------------------------------------------";
-    private final String SPACE = "     ";
 
     public Ui() {
 
@@ -10,6 +9,7 @@ public class Ui {
 
 
     public String betweenLines(String content) {
+        String SPACE = "     ";
         return LINE + "\n" + SPACE + content + "\n" + LINE;
     }
 

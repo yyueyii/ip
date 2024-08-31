@@ -1,8 +1,8 @@
 package Mario.Tasks;
 
 public class Event extends Task {
-    private String start;
-    private String end;
+    private final String start;
+    private final String end;
     private String type;
 
     public Event(String name, String start, String end) {

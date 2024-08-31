@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Mario {
 
     private static TaskList lst;
-    private Parser parser = new Parser(this);
+    private final Parser parser = new Parser(this);
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage();
 

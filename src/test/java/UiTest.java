@@ -10,8 +10,10 @@ public class UiTest {
         Ui ui = new Ui();
 
         String content = "Hello world!";
-        String expected = "-----------------------------------------------\n"
-                + "     Hello world!\n" + "-----------------------------------------------";
+        String expected = """
+                -----------------------------------------------
+                     Hello world!
+                -----------------------------------------------""";
         assertEquals(expected, ui.betweenLines(content));
 
     }
