@@ -24,33 +24,33 @@ public class Parser {
             return;
         }
 
-        switch(command) {
-            case LIST:
-                handleListTasks();
-                break;
-            case EVENT:
-                handleEventTask(input);
-                break;
-            case TODO:
-                handleAddTodoTask(input);
-                break;
-            case DEADLINE:
-                handleAddDeadlineTask(input);
-                break;
-            case MARK:
-                handleMarkTask(input);
-                break;
-            case UNMARK:
-                handleUnmarkTask(input);
-                break;
-            case REMOVE:
-                handleRemoveTask(input);
-                break;
-            case BYE:
-                handleBye();
-                break;
-            default:
-                handleInvalidInput();
+        switch (command) {
+        case LIST:
+            handleListTasks();
+            break;
+        case EVENT:
+            handleEventTask(input);
+            break;
+        case TODO:
+            handleAddTodoTask(input);
+            break;
+        case DEADLINE:
+            handleAddDeadlineTask(input);
+            break;
+        case MARK:
+            handleMarkTask(input);
+            break;
+        case UNMARK:
+            handleUnmarkTask(input);
+            break;
+        case REMOVE:
+            handleRemoveTask(input);
+            break;
+        case BYE:
+            handleBye();
+            break;
+        default:
+            handleInvalidInput();
         }
     }
 
