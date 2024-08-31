@@ -28,5 +28,4 @@ public enum CommandType {
         }
         throw new IllegalArgumentException();
     }
-
 }
