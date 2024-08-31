@@ -8,7 +8,9 @@ public enum CommandType {
     MARK("mark"),
     UNMARK("unmark"),
     REMOVE("remove"),
+    FIND("find"),
     BYE("bye");
+
 
     private final String commandString;
 

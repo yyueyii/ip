@@ -6,6 +6,7 @@ import Mario.Tasks.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -139,6 +140,34 @@ public class Mario {
 
     public static void saveToStorage(TaskList lst) throws IOException {
         storage.saveTasks(lst);
+    }
+
+    /**
+     * Displays tasks with the keyword in their name.
+     *
+     * @param keyword
+     */
+    public void findTask(String keyword) {
+        List<Task> res = new ArrayList<>();
+        for (Task task : lst.getAllTasks()) {
+            if (task.getName().contains(keyword)) {
+                res.add(task);
+            }
+        }
+        if (!res.isEmpty()) {
+            System.out.println(ui.getLine()
+                    + "     Here are the matching tasks in your list:\n");
+            for (int i = 0; i < res.size(); i++) {
+                Task task = res.get(i);
+                int id = i + 1;
+                System.out.println("        "
+                        + id +  ". " + task.getName());
+            }
+            System.out.println(ui.getLine());
+        } else {
+            System.out.println(
+                    ui.betweenLines("Oh no! There's no such task"));
+        }
     }
 
 }

@@ -49,6 +49,9 @@ public class Parser {
             case BYE:
                 handleBye();
                 break;
+            case FIND:
+                handleFind(input);
+                break;
             default:
                 handleInvalidInput();
         }
@@ -225,6 +228,16 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return null;
         }
+    }
+
+    /**
+     * Calls {@link Mario#findTask(String)}.
+     * @param input
+     */
+    public void handleFind(String input) {
+        String keyword = input.split(" ", 2)[1];
+        mario.findTask(keyword);
+
     }
 
 }
