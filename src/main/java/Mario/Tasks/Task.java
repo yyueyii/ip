@@ -14,6 +14,10 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
+    /**
+     * Returns formatted name of the task.
+     *
+     */
     public String getName() {
         return this.name;
     }
@@ -33,6 +37,11 @@ public class Task {
     public String getType() {
         return "";
     }
+
+    /**
+     * Returns task as a formatted name for storage.
+     *
+     */
     public String toFileFormat() {
         return "";
     }

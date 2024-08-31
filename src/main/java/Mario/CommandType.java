@@ -22,6 +22,10 @@ public enum CommandType {
         return commandString;
     }
 
+    /**
+     * Returns the Enum command type of the command string.
+     *
+     */
     public static CommandType fromString(String commandString) {
         for (CommandType command : CommandType.values()) {
             if (command.getCommandString().equals(commandString)) {

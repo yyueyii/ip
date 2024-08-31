@@ -14,6 +14,11 @@ public class Parser {
         this.ui = new Ui();
     }
 
+    /**
+     * Handles user inputs.
+     * @param input User input.
+     * @throws IOException If input is invalid.
+     */
     public void parseCommand(String input) throws IOException {
         String commandString = input.split(" ")[0];
         CommandType command;
@@ -57,10 +62,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Calls {@link Mario#listTasks()}.
+     */
     public void handleListTasks() {
         Mario.listTasks();
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#addTodoTask(String)}.
+     * @param input
+     * @throws IOException If input is invalid
+     */
     public void handleAddTodoTask(String input) throws IOException {
         String[] parts = input.split(" ", 2);
         if (parts.length == 1) {
@@ -73,6 +86,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#addDeadlineTask(String, String)}.
+     * @param input
+     */
     public void handleAddDeadlineTask(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
@@ -106,6 +123,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#addEventTask(String, String, String)}.
+     * @param input
+     */
     public void handleEventTask(String input) {
         if (input.split("\\s+").length == 1) {
             System.out.println(ui.betweenLines(
@@ -144,6 +165,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#markTask(int)}.
+     * @param input
+     */
     public void handleMarkTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
@@ -168,6 +193,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#unmarkTask(int)}.
+     * @param input
+     */
     public void handleUnmarkTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
@@ -192,6 +221,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input is valid, if so calls {@link Mario#removeTask(int)}
+     * @param input
+     */
     public void handleRemoveTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
@@ -213,15 +246,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Calls {@link Mario#bye()}
+     */
     public void handleBye() {
         mario.bye();
     }
 
+    /**
+     * Handles invalid input and prompts new user input.
+     */
     public void handleInvalidInput() {
         System.out.println(ui.betweenLines("I don't understand what that means :("));
         return;
     }
 
+    /**
+     * Converts valid date time string to type LocalDateTime.
+     * @param dateTimeString In the format yyyy-MM-dd HHmm.
+     * @return
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) {
         try {
             return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

@@ -8,7 +8,11 @@ public class Ui {
 
     }
 
-
+    /**
+     * Displays string to be between two lines.
+     * @param content
+     * @return
+     */
     public String betweenLines(String content) {
         return LINE + "\n" + SPACE + content + "\n" + LINE;
     }
