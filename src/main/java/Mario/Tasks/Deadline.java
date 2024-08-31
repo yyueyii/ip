@@ -1,7 +1,7 @@
 package Mario.Tasks;
 
 public class Deadline extends Task {
-    private String deadline;
+    private final String deadline;
     private String type;
 
     public Deadline(String name, String deadline) {

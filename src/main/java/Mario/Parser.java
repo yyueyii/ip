@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private Mario mario;
+    private final Mario mario;
     private final Ui ui;
 
     public Parser(Mario mario) {
@@ -25,10 +25,12 @@ public class Parser {
         try {
             command = CommandType.fromString(commandString);
         } catch (IllegalArgumentException e) {
-            System.out.println(ui.betweenLines("Oh no! Idk what that means."));
+            System.out.println(
+                    ui.betweenLines("Oh no! Idk what that means."));
             return;
         }
 
+<<<<<<< HEAD
         switch(command) {
             case LIST:
                 handleListTasks();
@@ -59,6 +61,35 @@ public class Parser {
                 break;
             default:
                 handleInvalidInput();
+=======
+        switch (command) {
+        case LIST:
+            handleListTasks();
+            break;
+        case EVENT:
+            handleEventTask(input);
+            break;
+        case TODO:
+            handleAddTodoTask(input);
+            break;
+        case DEADLINE:
+            handleAddDeadlineTask(input);
+            break;
+        case MARK:
+            handleMarkTask(input);
+            break;
+        case UNMARK:
+            handleUnmarkTask(input);
+            break;
+        case REMOVE:
+            handleRemoveTask(input);
+            break;
+        case BYE:
+            handleBye();
+            break;
+        default:
+            handleInvalidInput();
+>>>>>>> branch-A-CodingStandard
         }
     }
 
@@ -95,7 +126,8 @@ public class Parser {
         if (parts.length < 2) {
             System.out.println(
                     ui.betweenLines(
-                            "Mamma mia! Please include task name and deadline."));
+                            "Mamma mia! "
+                                    + "Please include task name and deadline."));
             return;
         }
         String content = parts[1];
@@ -258,7 +290,6 @@ public class Parser {
      */
     public void handleInvalidInput() {
         System.out.println(ui.betweenLines("I don't understand what that means :("));
-        return;
     }
 
     /**
