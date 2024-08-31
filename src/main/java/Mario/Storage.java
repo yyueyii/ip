@@ -20,6 +20,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes formatted tasks into the mario.txt file.
+     * @param tasks
+     * @throws IOException
+     */
     public void saveTasks(TaskList tasks) throws IOException {
         ensureDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
@@ -30,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the tasks from the mario.txt file.
+     * @return List of tasks.
+     * @throws IOException
+     */
     public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);

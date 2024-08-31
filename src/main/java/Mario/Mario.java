@@ -12,9 +12,13 @@ import java.util.Scanner;
 
 public class Mario {
 
+    /** Task List */
     private static TaskList lst;
+    /** Parser that interprets user input */
     private Parser parser = new Parser(this);
+    /** Ui which formats chatbot responses */
     private static final Ui ui = new Ui();
+    /** Stores task history */
     private static final Storage storage = new Storage();
 
     public Mario() throws IOException {
@@ -24,11 +28,18 @@ public class Mario {
             lst = new TaskList((ArrayList<Task>) storage.loadTasks());
         }
     }
+
     public static void main(String[] args) throws IOException {
         Mario mario = new Mario();
         mario.run();
     }
-    
+
+    /**
+     * Executes the main loop of the chatbot.
+     * Prints the welcome message and continuously sends user input to Parser
+     *
+     * @throws IOException
+     */
     public void run() throws IOException {
         String logo = ui.getLine()
                 + "It's-a me, Mario! \n"
@@ -51,6 +62,9 @@ public class Mario {
 
     }
 
+    /**
+     * Returns a formatted list of tasks.
+     */
     public static void listTasks() {
         int len = lst.length();
         if (len == 0) {
@@ -69,6 +83,11 @@ public class Mario {
         }
     }
 
+    /**
+     * Adds a todo task to the Task list
+     * @param name of task
+     * @throws IOException
+     */
     public static void addTodoTask(String name) throws IOException {
         ToDo todo = new ToDo(name);
         lst.addTask(todo);
@@ -80,6 +99,13 @@ public class Mario {
                 + " task(s) in your list!\n"));
     }
 
+
+    /**
+     * Adds a deadline task to the task list.
+     * @param name
+     * @param deadline
+     * @throws IOException
+     */
     public static void addDeadlineTask(String name, String deadline) throws IOException {
         Deadline dl = new Deadline(name, deadline);
         lst.addTask(dl);
@@ -91,6 +117,13 @@ public class Mario {
                         + " task(s) in your list!\n"));
     }
 
+    /**
+     * Adds an event task to the task list.
+     * @param name
+     * @param start Starting time of the event.
+     * @param end Ending time of the event.
+     * @throws IOException
+     */
     public static void addEventTask(String name, String start, String end) throws IOException {
         Event event = new Event(name, start, end);
         lst.addTask(event);
@@ -105,6 +138,11 @@ public class Mario {
         return this.lst.length();
     }
 
+    /**
+     * Marks task as completed.
+     * @param num Index of the task on the task list, starting from 1.
+     * @throws IOException
+     */
     public void markTask(int num) throws IOException {
         lst.markCompleted(num);
         saveToStorage(lst);
@@ -114,6 +152,11 @@ public class Mario {
     }
 
 
+    /**
+     * Unmarks task as completed.
+     * @param num Index of the task on the task list, starting from 1.
+     * @throws IOException If num is invalid.
+     */
     public void unmarkTask(int num) throws IOException {
         lst.markUncompleted(num);
         saveToStorage(lst);
@@ -122,6 +165,11 @@ public class Mario {
                 + "        " + lst.getTask(num).getName() + "\n"));
     }
 
+    /**
+     * Removes task from the task list.
+     * @param num Index of the task on the task list, starting from 1.
+     * @throws IOException If num is invalid.
+     */
     public void removeTask(int num) throws IOException {
         System.out.println(ui.betweenLines(
                 "Okey-dokey! I've removed this task: \n"
@@ -133,10 +181,18 @@ public class Mario {
 
     }
 
+    /**
+     * Prints the goodbye message and ends the programme.
+     */
     public void bye() {
         System.out.println(ui.betweenLines("Buh-bye! See you soon!" ));
     }
 
+    /**
+     * Updates storage to contain the latest task list information.
+     * @param lst List of tasks in the task list
+     * @throws IOException
+     */
     public static void saveToStorage(TaskList lst) throws IOException {
         storage.saveTasks(lst);
     }

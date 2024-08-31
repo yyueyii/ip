@@ -32,7 +32,6 @@ public class Deadline extends Task {
     }
 
 
-
     @Override
     public String toFileFormat() {
         int status = this.isCompleted ? 1 : 0;
