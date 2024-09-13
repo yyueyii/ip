@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class Mario {
@@ -199,12 +201,10 @@ public class Mario {
      *
      */
     public String findTask(String keyword) {
-        List<Task> res = new ArrayList<>();
-        for (Task task : lst.getAllTasks()) {
-            if (task.getName().contains(keyword)) {
-                res.add(task);
-            }
-        }
+        List<Task> res = lst.getAllTasks().stream()
+                                        .filter(task -> task.getName().contains(keyword))
+                                        .collect(Collectors.toList());
+
         if (res.isEmpty()) {
             return "Oh no! There's no such task.";
         }
@@ -214,6 +214,7 @@ public class Mario {
             int id = i + 1;
             response += id +  ". " + task.getName() + "\n";
         }
+
         return response;
     }
 
