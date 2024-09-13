@@ -70,6 +70,7 @@ public class Parser {
         if (parts.length == 1) {
            return "Mamma mia! Please include a valid todo name.";
         } else {
+            assert parts.length > 1 : "Task name is missing";
             String taskName = parts[1];
             return Mario.addTodoTask(taskName);
         }
@@ -98,6 +99,7 @@ public class Parser {
             if (formattedDeadline != null) {
                 return Mario.addDeadlineTask(name, formattedDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
             } else {
+                assert deadlineParts.length >= 3 : "Missing components";
                 return Mario.addDeadlineTask(name, deadline);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -164,6 +166,7 @@ public class Parser {
                 return "Please enter an integer between 0 and "
                             + (mario.getNumTasks() + 1);
             }
+            assert (number <= mario.getNumTasks()) : "Number entered out of range";
             return mario.markTask(number);
         } catch (NumberFormatException e) {
             return "Mamma mia! Please enter a valid integer.";
@@ -188,6 +191,7 @@ public class Parser {
                 return "Please enter an integer between 0 and "
                         + (mario.getNumTasks() + 1);
             }
+            assert (number <= mario.getNumTasks()) : "Number entered out of range";
             return mario.unmarkTask(number);
         } catch (NumberFormatException e) {
             return "Mamma mia! Please enter a valid integer.";
@@ -211,6 +215,7 @@ public class Parser {
                 return "Please enter an integer between 0 and "
                         + (mario.getNumTasks() + 1);
             }
+            assert (number <= mario.getNumTasks()) : "Number entered out of range";
             return mario.removeTask(number);
         } catch (NumberFormatException e) {
             return "Mamma mia! Please enter a valid integer.";
