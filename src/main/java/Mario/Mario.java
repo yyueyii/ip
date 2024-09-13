@@ -66,28 +66,26 @@ public class Mario {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        return "Mario heard: " + input;
+    public String getResponse(String input) throws IOException {
+        return parser.parseCommand(input);
     }
 
     /**
      * Returns a formatted list of tasks.
      */
-    public static void listTasks() {
+    public static String listTasks() {
         int len = lst.length();
         if (len == 0) {
-            System.out.println(ui.betweenLines(
-                    "There's nothing panned yet!"));
+            return "There's nothing planned yet!";
         } else {
-            System.out.println(ui.getLine()
-                    + "     Here you go:");
+            String reply = "Here you go:\n";
 
             for (int i = 0; i < len; i++) {
                 int order = i + 1;
-                System.out.println("     " + order + ". "
-                        + lst.getTask(order).getName());
+                reply += "      " + order + ". "
+                    + lst.getTask(order).getName() + "\n";
             }
-            System.out.println(ui.getLine());
+            return reply;
         }
     }
 
@@ -96,15 +94,14 @@ public class Mario {
      * @param name of task
      * @throws IOException
      */
-    public static void addTodoTask(String name) throws IOException {
+    public static String addTodoTask(String name) throws IOException {
         ToDo todo = new ToDo(name);
         lst.addTask(todo);
         saveToStorage(lst);
-        System.out.println(ui.betweenLines(
-                 "All right! I've added this task: \n"
+        return "All right! I've added this task: \n"
                 + "        " + todo.getName() + "\n"
                 + "     Now you have " + lst.length()
-                + " task(s) in your list!\n"));
+                + " task(s) in your list!\n";
     }
 
 
@@ -114,15 +111,14 @@ public class Mario {
      * @param deadline
      * @throws IOException
      */
-    public static void addDeadlineTask(String name, String deadline) throws IOException {
+    public static String addDeadlineTask(String name, String deadline) throws IOException {
         Deadline dl = new Deadline(name, deadline);
         lst.addTask(dl);
         saveToStorage(lst);
-        System.out.println(ui.betweenLines(
-                "All right! I've added this task: \n"
+        return "All right! I've added this task: \n"
                 + "        " + dl.getName() + "\n"
                 + "     Now you have " + lst.length()
-                        + " task(s) in your list!\n"));
+                        + " task(s) in your list!\n";
     }
 
     /**
@@ -132,14 +128,13 @@ public class Mario {
      * @param end Ending time of the event.
      * @throws IOException
      */
-    public static void addEventTask(String name, String start, String end) throws IOException {
+    public static String addEventTask(String name, String start, String end) throws IOException {
         Event event = new Event(name, start, end);
         lst.addTask(event);
         saveToStorage(lst);
-        System.out.print(ui.betweenLines(
-                "All right! I've added this task: \n"
+        return "All right! I've added this task: \n"
                 + "        " + event.getName() + "\n"
-                + "     Now you have " + lst.length() + " task(s) in your list!\n"));
+                + "     Now you have " + lst.length() + " task(s) in your list!\n";
     }
 
     public int getNumTasks() {
@@ -151,12 +146,11 @@ public class Mario {
      * @param num Index of the task on the task list, starting from 1.
      * @throws IOException
      */
-    public void markTask(int num) throws IOException {
+    public String markTask(int num) throws IOException {
         lst.markCompleted(num);
         saveToStorage(lst);
-        System.out.println(ui.betweenLines(
-                 "Okey-dokey! I've marked this task as done: \n"
-                + "       " + lst.getTask(num).getName() + "\n"));
+        return "Okey-dokey! I've marked this task as done: \n"
+                + "       " + lst.getTask(num).getName() + "\n";
     }
 
 
@@ -165,12 +159,11 @@ public class Mario {
      * @param num Index of the task on the task list, starting from 1.
      * @throws IOException If num is invalid.
      */
-    public void unmarkTask(int num) throws IOException {
+    public String unmarkTask(int num) throws IOException {
         lst.markUncompleted(num);
         saveToStorage(lst);
-        System.out.println(ui.betweenLines(
-                "Okey-dokey! I've marked this task as not done yet: \n"
-                + "        " + lst.getTask(num).getName() + "\n"));
+        return "Okey-dokey! I've marked this task as not done yet: \n"
+                + "        " + lst.getTask(num).getName() + "\n";
     }
 
     /**
@@ -178,22 +171,21 @@ public class Mario {
      * @param num Index of the task on the task list, starting from 1.
      * @throws IOException If num is invalid.
      */
-    public void removeTask(int num) throws IOException {
-        System.out.println(ui.betweenLines(
-                "Okey-dokey! I've removed this task: \n"
+    public String removeTask(int num) throws IOException {
+        String response = "Okey-dokey! I've removed this task: \n"
                 + "        " + lst.getTask(num).getName() + "\n"
                 + "     Now you have " + (lst.length()-1)
-                        + " task(s) in your list!\n"));
+                        + " task(s) in your list!\n";
         lst.removeTask(num);
         saveToStorage(lst);
-
+        return response;
     }
 
     /**
      * Prints the goodbye message and ends the programme.
      */
-    public void bye() {
-        System.out.println(ui.betweenLines("Buh-bye! See you soon!" ));
+    public String bye() {
+        return "Buh-bye! See you soon!" ;
     }
 
     /**
@@ -210,7 +202,7 @@ public class Mario {
      *
      * @param keyword
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         List<Task> res = new ArrayList<>();
         for (Task task : lst.getAllTasks()) {
             if (task.getName().contains(keyword)) {
@@ -218,18 +210,15 @@ public class Mario {
             }
         }
         if (!res.isEmpty()) {
-            System.out.println(ui.getLine()
-                    + "     Here are the matching tasks in your list:\n");
+            String response = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < res.size(); i++) {
                 Task task = res.get(i);
                 int id = i + 1;
-                System.out.println("        "
-                        + id +  ". " + task.getName());
+                response += id +  ". " + task.getName() + "\n";
             }
-            System.out.println(ui.getLine());
+            return response;
         } else {
-            System.out.println(
-                    ui.betweenLines("Oh no! There's no such task"));
+            return"Oh no! There's no such task";
         }
     }
 

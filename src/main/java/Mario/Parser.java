@@ -7,11 +7,9 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     private final Mario mario;
-    private final Ui ui;
 
     public Parser(Mario mario) {
         this.mario = mario;
-        this.ui = new Ui();
     }
 
     /**
@@ -19,72 +17,61 @@ public class Parser {
      * @param input User input.
      * @throws IOException If input is invalid.
      */
-    public void parseCommand(String input) throws IOException {
+    public String parseCommand(String input) throws IOException {
         String commandString = input.split(" ")[0];
         CommandType command;
         try {
             command = CommandType.fromString(commandString);
         } catch (IllegalArgumentException e) {
-            System.out.println(
-                    ui.betweenLines("Oh no! Idk what that means."));
-            return;
+            return "Oh no! I don't know what that means...";
         }
 
 
         switch (command) {
         case LIST:
-            handleListTasks();
-            break;
+            return handleListTasks();
         case EVENT:
-            handleEventTask(input);
-            break;
+            return handleEventTask(input);
         case TODO:
-            handleAddTodoTask(input);
-            break;
+            return handleAddTodoTask(input);
         case DEADLINE:
-            handleAddDeadlineTask(input);
-            break;
+            return handleAddDeadlineTask(input);
         case MARK:
-            handleMarkTask(input);
-            break;
+            return handleMarkTask(input);
         case UNMARK:
-            handleUnmarkTask(input);
-            break;
+            return handleUnmarkTask(input);
         case REMOVE:
-            handleRemoveTask(input);
-            break;
+            return handleRemoveTask(input);
         case BYE:
-            handleBye();
-            break;
+            return handleBye();
         case FIND:
-            handleFind(input);
-            break;
+            return handleFind(input);
         default:
-            handleInvalidInput();
+            return handleInvalidInput();
         }
     }
 
     /**
      * Calls {@link Mario#listTasks()}.
      */
-    public void handleListTasks() {
-        Mario.listTasks();
+    public String handleListTasks() {
+        return Mario.listTasks();
     }
 
     /**
      * Checks if input is valid, if so calls {@link Mario#addTodoTask(String)}.
+     *
      * @param input
+     * @return
      * @throws IOException If input is invalid
      */
-    public void handleAddTodoTask(String input) throws IOException {
+    public String handleAddTodoTask(String input) throws IOException {
         String[] parts = input.split(" ", 2);
         if (parts.length == 1) {
-            System.out.println(
-                    ui.betweenLines(
-                            "Mamma mia! Please include a valid todo name."));
+           return "Mamma mia! Please include a valid todo name.";
         } else {
             String taskName = parts[1];
-            Mario.addTodoTask(taskName);
+            return Mario.addTodoTask(taskName);
         }
     }
 
@@ -92,14 +79,10 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#addDeadlineTask(String, String)}.
      * @param input
      */
-    public void handleAddDeadlineTask(String input) {
+    public String handleAddDeadlineTask(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
-            System.out.println(
-                    ui.betweenLines(
-                            "Mamma mia! "
-                                    + "Please include task name and deadline."));
-            return;
+            return "Mamma mia! Please include task name and deadline!";
         }
         String content = parts[1];
         try {
@@ -113,14 +96,13 @@ public class Parser {
             LocalDateTime formattedDeadline = parseDateTime(deadline);
 
             if (formattedDeadline != null) {
-                Mario.addDeadlineTask(name, formattedDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
+                return Mario.addDeadlineTask(name, formattedDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
             } else {
-                Mario.addDeadlineTask(name, deadline);
+                return Mario.addDeadlineTask(name, deadline);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(
-                    ui.betweenLines("Mamma mia! There's no deadline."
-                    + " \nAdd one with the /by keyword!"));
+            return "Mamma mia! There's no deadline."
+                    + " \nAdd one with the /by keyword!";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,10 +112,9 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#addEventTask(String, String, String)}.
      * @param input
      */
-    public void handleEventTask(String input) {
+    public String handleEventTask(String input) {
         if (input.split("\\s+").length == 1) {
-            System.out.println(ui.betweenLines(
-                    "Mamma mia! The event name cannot be empty!\n"));
+            return "Mamma mia! The event name cannot be empty!\n";
 
         } else {
             String info;
@@ -153,15 +134,15 @@ public class Parser {
                 LocalDateTime formattedEnd = parseDateTime(end);
 
                 if (formattedEnd != null && formattedStart != null) {
-                    Mario.addEventTask(name, formattedStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")),
+                    return mario.addEventTask(name, formattedStart.format(
+                            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")),
                             formattedEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm")));
                 } else {
-                    Mario.addEventTask(name, start, end);
+                    return mario.addEventTask(name, start, end);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(ui.betweenLines(
-                        "Mamma mia! There's no start and/or end time.\n"
-                        + "     Add them with the /from and /to keywords!\n"));
+                return "Mamma mia! There's no start and/or end time.\n"
+                        + "     Add them with the /from and /to keywords!\n";
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -172,25 +153,20 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#markTask(int)}.
      * @param input
      */
-    public void handleMarkTask(String input) {
+    public String handleMarkTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
-            System.out.println(ui.betweenLines(
-                    "Please enter a valid number!"));
-            return;
+            return "Please enter a valid number!";
         }
         try {
             int number = Integer.parseInt(n[1]);
             if (number > mario.getNumTasks() || number < 1) {
-                System.out.println(ui.betweenLines(
-                        "Please enter an integer between 0 and "
-                            + (mario.getNumTasks() + 1)));
-                return;
+                return "Please enter an integer between 0 and "
+                            + (mario.getNumTasks() + 1);
             }
-            mario.markTask(number);
+            return mario.markTask(number);
         } catch (NumberFormatException e) {
-            System.out.println(ui.betweenLines(
-                    "Mamma mia! Please enter a valid integer."));
+            return "Mamma mia! Please enter a valid integer.";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -200,25 +176,21 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#unmarkTask(int)}.
      * @param input
      */
-    public void handleUnmarkTask(String input) {
+    public String handleUnmarkTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
-            System.out.println(ui.betweenLines(
-                    "Please enter a valid number!"));
-            return;
+            return "Please enter a valid number!";
+
         }
         try {
             int number = Integer.parseInt(n[1]);
             if (number > mario.getNumTasks() || number < 1) {
-                System.out.println(ui.betweenLines("Please enter an integer between 0 and "
-                        + (mario.getNumTasks() + 1)));
-                return;
+                return "Please enter an integer between 0 and "
+                        + (mario.getNumTasks() + 1);
             }
-            mario.unmarkTask(number);
+            return mario.unmarkTask(number);
         } catch (NumberFormatException e) {
-            System.out.println(
-                    ui.betweenLines(
-                            "Mamma mia! Please enter a valid integer."));
+            return "Mamma mia! Please enter a valid integer.";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -228,22 +200,20 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#removeTask(int)}
      * @param input
      */
-    public void handleRemoveTask(String input) {
+    public String handleRemoveTask(String input) {
         String[] n = input.split(" ");
         if (n.length != 2) {
-            System.out.println(ui.betweenLines("Please enter a valid number!"));
-            return;
+            return "Please enter a valid number!";
         }
         try {
             int number = Integer.parseInt(n[1]);
             if (number > mario.getNumTasks() || number < 1) {
-                System.out.println(ui.betweenLines("Please enter an integer between 0 and "
-                        + (mario.getNumTasks() + 1)));
-                return;
+                return "Please enter an integer between 0 and "
+                        + (mario.getNumTasks() + 1);
             }
-            mario.removeTask(number);
+            return mario.removeTask(number);
         } catch (NumberFormatException e) {
-            System.out.println(ui.betweenLines("Mamma mia! Please enter a valid integer."));
+            return "Mamma mia! Please enter a valid integer.";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -252,15 +222,15 @@ public class Parser {
     /**
      * Calls {@link Mario#bye()}
      */
-    public void handleBye() {
-        mario.bye();
+    public String handleBye() {
+        return mario.bye();
     }
 
     /**
      * Handles invalid input and prompts new user input.
      */
-    public void handleInvalidInput() {
-        System.out.println(ui.betweenLines("I don't understand what that means :("));
+    public String handleInvalidInput() {
+        return "I don't understand what that means :(";
     }
 
     /**
@@ -280,10 +250,9 @@ public class Parser {
      * Calls {@link Mario#findTask(String)}.
      * @param input
      */
-    public void handleFind(String input) {
+    public String handleFind(String input) {
         String keyword = input.split(" ", 2)[1];
-        mario.findTask(keyword);
-
+        return mario.findTask(keyword);
     }
 
 }
