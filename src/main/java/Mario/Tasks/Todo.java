@@ -1,15 +1,13 @@
 package Mario.Tasks;
 
-import Mario.Tasks.Task;
-
-public class ToDo extends Task {
+public class Todo extends Task {
     String type;
-    public ToDo (String name) {
+    public Todo(String name) {
         super(name);
         this.type = "T";
     }
 
-    public ToDo (String name, boolean isCompleted) {
+    public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
 

@@ -14,7 +14,7 @@ public class UiTest {
                 -----------------------------------------------
                      Hello world!
                 -----------------------------------------------""";
-        assertEquals(expected, ui.betweenLines(content));
+        assertEquals(expected, ui.printSeparatorLines(content));
 
     }
 

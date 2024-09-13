@@ -10,9 +10,8 @@ public class Ui {
     /**
      * Displays string to be between two lines.
      * @param content
-     * @return
      */
-    public String betweenLines(String content) {
+    public String printSeparatorLines(String content) {
         String SPACE = "     ";
         return LINE + "\n" + SPACE + content + "\n" + LINE;
     }
