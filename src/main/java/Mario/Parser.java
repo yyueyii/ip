@@ -30,11 +30,13 @@ public class Parser {
         case LIST:
             return handleListTasks();
         case EVENT:
-            return handleEventTask(input);
+            return handleAddEventTask(input);
         case TODO:
             return handleAddTodoTask(input);
         case DEADLINE:
             return handleAddDeadlineTask(input);
+        case FIXED:
+            return handleAddFixedDurationTask(input);
         case MARK:
             return handleMarkTask(input);
         case UNMARK:
@@ -113,7 +115,7 @@ public class Parser {
      * Checks if input is valid, if so calls {@link Mario#addEventTask(String, String, String)}.
      * @param input
      */
-    public String handleEventTask(String input) {
+    public String handleAddEventTask(String input) {
         if (input.split("\\s+").length == 1) {
             return "Mamma mia! The event name cannot be empty!\n";
 
@@ -147,6 +149,35 @@ public class Parser {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    /**
+     * Checks if input is valid, if so calls {@link Mario#}
+     * @param input
+     * @return
+     */
+    public String handleAddFixedDurationTask(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            return "Mamma mia! Please include task name and duration!";
+        }
+        String content = parts[1];
+        try {
+            String[] durationParts = content.split("/needs", 2);
+            if (durationParts.length < 2) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+
+            String name = durationParts[0].trim();
+            String duration = durationParts[1].trim();
+
+            return Mario.addFixedDurationTask(name, duration);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Mamma mia! There's no duration."
+                    + " \nAdd one with the /needs keyword!";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

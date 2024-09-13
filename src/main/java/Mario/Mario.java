@@ -1,9 +1,6 @@
 package Mario;
 
-import Mario.Tasks.Deadline;
-import Mario.Tasks.Event;
-import Mario.Tasks.Task;
-import Mario.Tasks.Todo;
+import Mario.Tasks.*;
 
 import java.io.IOException;
 
@@ -136,6 +133,16 @@ public class Mario {
                 + "        " + event.getName() + "\n"
                 + "     Now you have " + lst.length()
                 + " task(s) in your list!\n";
+    }
+
+    public static String addFixedDurationTask(String name, String duration) throws IOException {
+        FixedDuration fixedDuration = new FixedDuration(name, duration);
+        lst.addTask(fixedDuration);
+        saveToStorage(lst);
+        return "All right! I've added this task: \n"
+                + "        " + fixedDuration.getName() + "\n"
+                + "     Now you have " + lst.length()
+                + "task(s) in your list!\n";
     }
 
     public int getNumTasks() {

@@ -1,9 +1,6 @@
 package Mario;
 
-import Mario.Tasks.Deadline;
-import Mario.Tasks.Event;
-import Mario.Tasks.Task;
-import Mario.Tasks.Todo;
+import Mario.Tasks.*;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
@@ -90,6 +87,9 @@ public class Storage {
                 String start = splitDuration[0];
                 String end = splitDuration[1];
                 return createEventTask(name, start, end, isCompleted);
+            case "F":
+                String taskDuration = parts[3];
+                return createFixedDurationTask(name, taskDuration, isCompleted);
             default:
                 return null;
             }
@@ -107,6 +107,10 @@ public class Storage {
 
     private Task createEventTask(String name, String start, String end, boolean isCompleted) {
         return new Event(name, start, end, isCompleted);
+    }
+
+    private Task createFixedDurationTask(String name, String duration, boolean isCompleted) {
+        return new FixedDuration(name, duration, isCompleted);
     }
 
 }

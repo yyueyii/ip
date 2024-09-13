@@ -8,6 +8,7 @@ public enum CommandType {
     MARK("mark"),
     UNMARK("unmark"),
     REMOVE("remove"),
+    FIXED("fixed"),
     FIND("find"),
     BYE("bye");
 
