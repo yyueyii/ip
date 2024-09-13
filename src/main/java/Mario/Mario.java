@@ -15,12 +15,9 @@ public class Mario {
 
     /** Task List */
     private static TaskList lst;
-<<<<<<< HEAD
     /** Parser that interprets user input */
     private Parser parser = new Parser(this);
     /** Ui which formats chatbot responses */
-=======
->>>>>>> branch-A-CodingStandard
     private static final Ui ui = new Ui();
     /** Stores task history */
     private static final Storage storage = new Storage();

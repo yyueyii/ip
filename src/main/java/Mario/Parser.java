@@ -30,38 +30,7 @@ public class Parser {
             return;
         }
 
-<<<<<<< HEAD
-        switch(command) {
-            case LIST:
-                handleListTasks();
-                break;
-            case EVENT:
-                handleEventTask(input);
-                break;
-            case TODO:
-                handleAddTodoTask(input);
-                break;
-            case DEADLINE:
-                handleAddDeadlineTask(input);
-                break;
-            case MARK:
-                handleMarkTask(input);
-                break;
-            case UNMARK:
-                handleUnmarkTask(input);
-                break;
-            case REMOVE:
-                handleRemoveTask(input);
-                break;
-            case BYE:
-                handleBye();
-                break;
-            case FIND:
-                handleFind(input);
-                break;
-            default:
-                handleInvalidInput();
-=======
+
         switch (command) {
         case LIST:
             handleListTasks();
@@ -87,9 +56,11 @@ public class Parser {
         case BYE:
             handleBye();
             break;
+        case FIND:
+            handleFind(input);
+            break;
         default:
             handleInvalidInput();
->>>>>>> branch-A-CodingStandard
         }
     }
 
