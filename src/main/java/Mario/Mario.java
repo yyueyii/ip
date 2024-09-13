@@ -64,6 +64,13 @@ public class Mario {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Mario heard: " + input;
+    }
+
+    /**
      * Returns a formatted list of tasks.
      */
     public static void listTasks() {
