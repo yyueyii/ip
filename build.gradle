@@ -41,6 +41,7 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+    jvmArgs '-ea'
 }
 
 checkstyle {

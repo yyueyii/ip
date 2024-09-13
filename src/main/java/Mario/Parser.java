@@ -68,11 +68,10 @@ public class Parser {
     public String handleAddTodoTask(String input) throws IOException {
         String[] parts = input.split(" ", 2);
         if (parts.length == 1) {
-           return "Mamma mia! Please include a valid todo name.";
-        } else {
-            String taskName = parts[1];
-            return Mario.addTodoTask(taskName);
+            return "Mamma mia! Please enter a todo task name!";
         }
+        String taskName = parts[1];
+        return Mario.addTodoTask(taskName);
     }
 
     /**

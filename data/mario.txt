@@ -12,3 +12,5 @@ T | 0 | homework
 D | 0 | cs2101 synpnosis | today
 D | 0 | synopsis | 11/11/2011 04:40
 E | 0 | class  | monday-fridat
+T | 0 | laundry
+T | 0 | nothing
