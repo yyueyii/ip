@@ -26,7 +26,6 @@ public class Parser {
             return "Oh no! I don't know what that means...";
         }
 
-
         switch (command) {
         case LIST:
             return handleListTasks();
@@ -183,7 +182,6 @@ public class Parser {
         String[] n = input.split(" ");
         if (n.length != 2) {
             return "Please enter a valid number!";
-
         }
         try {
             int number = Integer.parseInt(n[1]);
@@ -241,7 +239,6 @@ public class Parser {
     /**
      * Converts valid date time string to type LocalDateTime.
      * @param dateTimeString In the format yyyy-MM-dd HHmm.
-     * @return
      */
     public static LocalDateTime parseDateTime(String dateTimeString) {
         try {

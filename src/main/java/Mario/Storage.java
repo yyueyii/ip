@@ -3,9 +3,15 @@ package Mario;
 import Mario.Tasks.Deadline;
 import Mario.Tasks.Event;
 import Mario.Tasks.Task;
-import Mario.Tasks.ToDo;
+import Mario.Tasks.Todo;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,34 +57,56 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                if (parts.length >= 3) {
-                    String type = parts[0];
-                    boolean isCompleted = parts[1].equals("1");
-                    String name = parts[2];
-
-                    switch (type) {
-                        case "T":
-                            tasks.add(new ToDo(name, isCompleted));
-                            break;
-                        case "D":
-                            String deadline = parts[3];
-                            tasks.add(new Deadline(name, deadline, isCompleted));
-                            break;
-                        case "E":
-                            String duration = parts[3];
-                            String start = duration.split("-")[0];
-                            String end = duration.split("-")[1];
-                            tasks.add(new Event(name, start, end, isCompleted));
-                            break;
-
-                    }
+                Task task = parseTaskLine(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
         }
         return tasks;
     }
 
+    /**
+     * Parses a single line of task and create tasks accordingly.
+     * @param line
+     * @return
+     */
+    private Task parseTaskLine(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length >= 3) {
+            String type = parts[0];
+            boolean isCompleted = parts[1].equals("1");
+            String name = parts[2];
 
+            switch (type) {
+            case "T":
+                return createTodoTask(name, isCompleted);
+            case "D":
+                String deadline = parts[3];
+                return createDeadlineTask(name, deadline, isCompleted);
+            case "E":
+                String duration = parts[3];
+                String[] splitDuration = duration.split("-");
+                String start = splitDuration[0];
+                String end = splitDuration[1];
+                return createEventTask(name, start, end, isCompleted);
+            default:
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private Task createTodoTask(String name, boolean isCompleted) {
+        return new Todo(name, isCompleted);
+    }
+
+    private Task createDeadlineTask(String name, String deadline, boolean isCompleted) {
+        return new Deadline(name, deadline, isCompleted);
+    }
+
+    private Task createEventTask(String name, String start, String end, boolean isCompleted) {
+        return new Event(name, start, end, isCompleted);
+    }
 
 }

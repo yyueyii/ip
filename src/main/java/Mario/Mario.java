@@ -1,10 +1,12 @@
 package Mario;
+
 import Mario.Tasks.Deadline;
 import Mario.Tasks.Event;
 import Mario.Tasks.Task;
-import Mario.Tasks.ToDo;
+import Mario.Tasks.Todo;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -60,7 +62,6 @@ public class Mario {
         while (!input.equals("bye") && !input.equals("Bye"));
 
         scanner.close();
-
     }
 
     /**
@@ -77,16 +78,15 @@ public class Mario {
         int len = lst.length();
         if (len == 0) {
             return "There's nothing planned yet!";
-        } else {
-            String reply = "Here you go:\n";
-
-            for (int i = 0; i < len; i++) {
-                int order = i + 1;
-                reply += "      " + order + ". "
-                    + lst.getTask(order).getName() + "\n";
-            }
-            return reply;
         }
+        String reply = "Here you go:\n";
+        for (int i = 0; i < len; i++) {
+            int order = i + 1;
+            reply += "      " + order + ". "
+                    + lst.getTask(order).getName() + "\n";
+        }
+        return reply;
+
     }
 
     /**
@@ -95,7 +95,7 @@ public class Mario {
      * @throws IOException
      */
     public static String addTodoTask(String name) throws IOException {
-        ToDo todo = new ToDo(name);
+        Todo todo = new Todo(name);
         lst.addTask(todo);
         saveToStorage(lst);
         return "All right! I've added this task: \n"
@@ -123,10 +123,8 @@ public class Mario {
 
     /**
      * Adds an event task to the task list.
-     * @param name
      * @param start Starting time of the event.
      * @param end Ending time of the event.
-     * @throws IOException
      */
     public static String addEventTask(String name, String start, String end) throws IOException {
         Event event = new Event(name, start, end);
@@ -134,7 +132,8 @@ public class Mario {
         saveToStorage(lst);
         return "All right! I've added this task: \n"
                 + "        " + event.getName() + "\n"
-                + "     Now you have " + lst.length() + " task(s) in your list!\n";
+                + "     Now you have " + lst.length()
+                + " task(s) in your list!\n";
     }
 
     public int getNumTasks() {
@@ -144,7 +143,6 @@ public class Mario {
     /**
      * Marks task as completed.
      * @param num Index of the task on the task list, starting from 1.
-     * @throws IOException
      */
     public String markTask(int num) throws IOException {
         lst.markCompleted(num);
@@ -191,7 +189,6 @@ public class Mario {
     /**
      * Updates storage to contain the latest task list information.
      * @param lst List of tasks in the task list
-     * @throws IOException
      */
     public static void saveToStorage(TaskList lst) throws IOException {
         storage.saveTasks(lst);
@@ -200,7 +197,6 @@ public class Mario {
     /**
      * Displays tasks with the keyword in their name.
      *
-     * @param keyword
      */
     public String findTask(String keyword) {
         List<Task> res = new ArrayList<>();
@@ -209,17 +205,16 @@ public class Mario {
                 res.add(task);
             }
         }
-        if (!res.isEmpty()) {
-            String response = "Here are the matching tasks in your list:\n";
-            for (int i = 0; i < res.size(); i++) {
-                Task task = res.get(i);
-                int id = i + 1;
-                response += id +  ". " + task.getName() + "\n";
-            }
-            return response;
-        } else {
-            return"Oh no! There's no such task";
+        if (res.isEmpty()) {
+            return "Oh no! There's no such task.";
         }
+        String response = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < res.size(); i++) {
+            Task task = res.get(i);
+            int id = i + 1;
+            response += id +  ". " + task.getName() + "\n";
+        }
+        return response;
     }
 
 }
