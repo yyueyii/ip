@@ -28,6 +28,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        greetUser();
+
+    }
+
+    private void greetUser() {
+        String greeting = "It's-a me, Mario! How can I help you today?";
+        dialogContainer.getChildren().add(DialogBox.getMarioDialog(greeting, marioImage));
     }
 
     /** Injects the Mario instance */
@@ -41,6 +48,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException {
+
         String input = userInput.getText();
         assert (input != "") : "Input cannot be blank";
         String response = mario.getResponse(input);
