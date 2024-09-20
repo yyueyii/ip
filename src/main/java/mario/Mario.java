@@ -1,6 +1,6 @@
 package mario;
 
-import mario.Tasks.*;
+import mario.tasks.*;
 
 import java.io.IOException;
 

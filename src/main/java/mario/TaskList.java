@@ -1,6 +1,6 @@
 package mario;
 
-import mario.Tasks.Task;
+import mario.tasks.Task;
 
 import java.util.ArrayList;
 

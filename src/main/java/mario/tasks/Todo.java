@@ -1,4 +1,4 @@
-package mario.Tasks;
+package mario.tasks;
 
 public class Todo extends Task {
     String type;

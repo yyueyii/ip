@@ -1,5 +1,5 @@
 import mario.TaskList;
-import mario.Tasks.Task;
+import mario.tasks.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

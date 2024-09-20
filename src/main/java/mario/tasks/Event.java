@@ -1,4 +1,4 @@
-package mario.Tasks;
+package mario.tasks;
 
 public class Event extends Task {
     private final String start;
