@@ -1,5 +1,5 @@
 # Mario User Guide
-![Pic](docs/Ui.png)
+![Pic](Ui.png)
 
 Mario is here to make task management a breeze! This easy-to-use chatbot helps you  keep track of all your tasks - add, remove, mark, or unmark them anytime!
 
