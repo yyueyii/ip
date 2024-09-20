@@ -1,24 +1,81 @@
-# Duke project template
+# Mario User Guide
+Mario is here to make task management a breeze! This easy-to-use chatbot helps you  keep track of all your tasks - add, remove, mark, or unmark them anytime!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Quick start
+1. Download the ```.jar``` file.
+2. Open terminal and ```cd``` into the directory with the jar file.
+3. Run the application with ```java -jar mario.jar```.
+4. Refer to the Features below for details on how to use the application. 
 
-## Setting up in Intellij
+## Features
+### Add a todo task: ```todo```
+Adds a todo task to the task list. 
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Format: ```todo NAME```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Example: 
+- ```todo Homework```
+
+### Add a deadline task: ```deadline```
+Adds a deadline task to the task list. The deadline input by the user could be in the format yyyy-MM-dd HHmm, which will be formated in the list, or a non-formated deadline, such as "next week".
+
+Format: ```deadline NAME /by DEADLINE```
+
+Examples: 
+- ```deadline CS2103T Task /by next week```
+- ```deadline CS2103T Task /by 2024-09-20 2359```
+
+### Add an event task: ```event```
+Adds an event task to the task list. 
+
+Format: ```event NAME /from START_TIME /to END_TIME```
+
+Example:
+- ```event Team meeting /from 5pm /to 7pm```
+
+### Add a fixed duration task: ```fixed```
+Adds a fixed duration task to the task list. 
+
+Format: ```fixed NAME /needs REQUIRED_DURATION```
+
+Example:
+- ```fixed Revision /needs 2 hours```
+
+### List all tasks in the task list: ```list```
+Lists the tasks in the task list. 
+
+Format: ```list```
+
+### Mark a task as done: ```mark```
+Marks a task on the task list as completed by its task number. 
+
+Format: ```mark TASK_NUMBER```
+
+Example:
+- ```mark 3```
+
+### Unmark a task as done: ```unmark```
+Unmarks a task on the task list as not completed by its task number. 
+
+Format: ```unmark TASK_NUMBER```
+
+Example:
+- ```unmark 3```
+
+### Remove a task from the task list: ```remove```
+Deletes a task from the task list by its task number. 
+
+Format: ```remove TASK_NUMBER```
+
+Example:
+- ```remove 3```
+
+### Find a task in the task list: ```find```
+Lists tasks with matching names. 
+
+Format: ```find NAME```
+
+Example:
+- ```find Homework```
+
+  
