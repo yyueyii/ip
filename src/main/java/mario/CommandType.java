@@ -1,4 +1,4 @@
-package Mario;
+package mario;
 
 public enum CommandType {
     LIST("list"),

@@ -1,4 +1,4 @@
-package Mario;
+package mario;
 
 public class Ui {
     private final String LINE = "-----------------------------------------------";

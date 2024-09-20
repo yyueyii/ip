@@ -1,6 +1,6 @@
-package Mario;
+package mario;
 
-import Mario.Tasks.*;
+import mario.Tasks.*;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package Mario.Tasks;
+package mario.Tasks;
 
 public class FixedDuration extends Task {
     private final String duration;

@@ -1,4 +1,4 @@
-package Mario;
+package mario;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

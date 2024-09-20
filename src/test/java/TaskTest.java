@@ -1,4 +1,4 @@
-import Mario.Tasks.Task;
+import mario.Tasks.Task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

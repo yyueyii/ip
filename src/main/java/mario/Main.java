@@ -1,4 +1,4 @@
-package Mario;
+package mario;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            stage.setTitle("Mario");
+            stage.setTitle("mario");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

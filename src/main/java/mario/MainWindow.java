@@ -1,4 +1,4 @@
-package Mario;
+package mario;
 
 import javafx.fxml.FXML;
 
